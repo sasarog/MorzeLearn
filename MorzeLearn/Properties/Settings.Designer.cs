@@ -34,5 +34,17 @@ namespace MorzeLearn.Properties {
                 this["pathToFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double speed {
+            get {
+                return ((double)(this["speed"]));
+            }
+            set {
+                this["speed"] = value;
+            }
+        }
     }
 }

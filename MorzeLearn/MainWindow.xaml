@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MorzeLearn"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
+        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
@@ -20,14 +20,14 @@
              FontSize="62" Width="458"
                />
         <Label x:Name="lblMorzeCode"
-               Content="---.-" HorizontalAlignment="Center" VerticalAlignment="Center"
-                FontSize="62"
+               Content="---.-" HorizontalAlignment="Left" VerticalAlignment="Top"
+                FontSize="62" Margin="147,174,0,0"
                />
         <Slider x:Name="sldrSpeed"
             HorizontalAlignment="Left" 
             Margin="721,63,0,0" 
             VerticalAlignment="Top" 
-            Orientation="Vertical" Height="121"
+            Orientation="Vertical" Height="121" Minimum="1"
         />
         <Button x:Name="btnTest"
             Content="Button" 
@@ -41,8 +41,16 @@
             Margin="161,327,0,0" 
             VerticalAlignment="Top" 
                 Height="46"
-                Width="109"
+                Width="109" Click="btnStart_Click"
         />
+        <Label x:Name="lblEnteredMorzeCode"
+            Content="---.-" HorizontalAlignment="Left" VerticalAlignment="Top"
+            FontSize="62" Margin="506,178,0,0"
+               />
+        <Label x:Name="lblAddSymbol"
+            Content="---.-" HorizontalAlignment="Center" VerticalAlignment="Top"
+            FontSize="62" Margin="0,178,0,0"
+               />
 
 
     </Grid>
