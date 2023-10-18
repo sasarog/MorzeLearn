@@ -49,9 +49,7 @@ namespace MorzeLearn
 
 
             InitializeComponent();
-            
-            
-            timer.Start();
+            InitializeTimers();            
             
             //Загрузка настроек
             this.pathToFile = Properties.Settings.Default.pathToFile;
