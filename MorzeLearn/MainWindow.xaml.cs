@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 
 namespace MorzeLearn
 {
+    
+    
     enum Znak
     {
         dot,
@@ -29,6 +31,61 @@ namespace MorzeLearn
     /// </summary>
     public partial class MainWindow : Window
     {
+        Dictionary<string,char> alphabet = new Dictionary<string, char>() {
+            {".-",'А' },
+            {"-...",'Б' },
+            {".--",'В' },
+            {"--.",'Г' },
+            {"-..",'Д' },
+            {".",'Е' },
+            {"...-",'Ж' },
+            {"--..",'З' },
+            {".---",'И' },
+            {"-.-",'К' },
+            {".-..",'Л' },
+            {"--",'М' },
+            {"-.",'Н' },
+            {"---",'О' },
+            {".--.",'П' },
+            {".-.",'Р' },
+            {"---",'С' },
+            {"-",'Т' },
+            {"..-",'У' },
+            {"..-.",'Ф' },
+            {"....",'Х' },
+            {"-.-.",'Ц' },
+            {"---.",'Ч' },
+            {"----",'Ш' },
+            {"--.-",'Щ' },
+            {"-..-",'Ь' },
+            {"-.--",'Ы' },
+            {"..-..",'Э' },
+            {"..--",'Ю' },
+            {".-.-",'Я' },
+            {"-..-",'Ъ' },
+            {"-----",'0' },
+            {".----",'1' },
+            {"..---",'2' },
+            {"...--",'3' },
+            {"....-",'4' },
+            {".....",'5' },
+            {"-....",'6' },
+            {"--...",'7' },
+            {"---..",'8' },
+            {"----.",'9' },
+            {"......",'.' },
+            {".-.-.-",',' },
+            {"..--..",'?' },
+            {"-....-",'-' },
+            {".-..-.",'"' },
+            {"-.-.-.",';' },
+            {"--..--",'!' },
+            {"-.--.-",'(' },
+            {"-.--.-",')' },
+            {"---...",':' },
+            {".-.-..",'+' }
+        };
+
         //Путь к файлу для воспроизведения
         public string pathToFile = "";
         //Текст для печати
@@ -37,8 +94,10 @@ namespace MorzeLearn
         public DateTime startPush;
         //Конец  нажатия кнопки
         public DateTime endPush;
+        //Таймер для отображения текущей буквы
         System.Windows.Threading.DispatcherTimer timer;
-
+        //выключена ли прога
+        bool isStopped = true;
         private void InitializeTimers()
         {
             timer = new System.Windows.Threading.DispatcherTimer();
@@ -49,8 +108,8 @@ namespace MorzeLearn
 
 
             InitializeComponent();
-            InitializeTimers();            
-            
+            InitializeTimers();
+
             //Загрузка настроек
             this.pathToFile = Properties.Settings.Default.pathToFile;
             this.sldrSpeed.Value = Properties.Settings.Default.speed;
@@ -97,16 +156,26 @@ namespace MorzeLearn
         }
         private void loadText()
         {
-            this.textFor = File.ReadAllText(this.pathToFile);
+            this.tbTextForEnter.Text = File.ReadAllText(this.pathToFile);
 
         }
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            loadText();
+            if (isStopped)
+            {
+                this.isStopped = false;
+                this.btnStart.Content = "Stop";
+            }
+            else
+            {
+                this.isStopped = true;
+                this.btnStart.Content = "Start";
+            }
         }
-    
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            if (isStopped) return;
             if (!e.IsRepeat)
             {
                 timer.Start();
@@ -140,6 +209,7 @@ namespace MorzeLearn
             //    DateTime.Now.ToString() + "\n" +
             //    (DateTime.Now - startPush).ToString()
             //    );
+            if (isStopped) return;
             Znak z = isZnak(DateTime.Now - startPush);
             switch (z)
             {
@@ -155,6 +225,27 @@ namespace MorzeLearn
             }
             timer.Stop();
             lblAddSymbol.Content = "";
+        }
+
+        private void chckbxHelp_Checked(object sender, RoutedEventArgs e)
+        {
+            this.lblMorzeCode.Visibility = Visibility.Visible;
+        }
+
+        private void chckbxHelp_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.lblMorzeCode.Visibility = Visibility.Collapsed;
+        }
+        char GetCharByCode(string code)
+        {
+            foreach(var pair in alphabet)
+            {
+                if(pair.Key == code)
+                {
+                    return pair.Value;
+                }
+            }
+            return '\0';
         }
     }
 }

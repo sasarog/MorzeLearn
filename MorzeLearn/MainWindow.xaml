@@ -14,20 +14,20 @@
                 <MenuItem Header="Close"/>
             </MenuItem>
         </Menu>
-        <Label x:Name="lblText"
-            Content="Label" HorizontalAlignment="Left" 
-              Margin="111,77,0,0" VerticalAlignment="Top"
+        <Label x:Name="lblEnteredText"
+            Content="" HorizontalAlignment="Left" 
+              Margin="101,153,0,0" VerticalAlignment="Top"
              FontSize="62" Width="458"
                />
         <Label x:Name="lblMorzeCode"
                Content="---.-" HorizontalAlignment="Left" VerticalAlignment="Top"
-                FontSize="62" Margin="140,225,0,0"
+                FontSize="62" Margin="181,225,0,0"
                />
         <Slider x:Name="sldrSpeed"
             HorizontalAlignment="Left" 
-            Margin="721,63,0,0" 
+            Margin="1167,63,0,0" 
             VerticalAlignment="Top" 
-            Orientation="Vertical" Height="121" Minimum="1"
+            Orientation="Vertical" Height="291" Minimum="1" 
         />
         <Button x:Name="btnTest"
             Content="Button" 
@@ -49,8 +49,24 @@
                />
         <Label x:Name="lblAddSymbol"
             Content="---.-" HorizontalAlignment="Left" VerticalAlignment="Top"
-            FontSize="62" Margin="360,225,0,0"
+            FontSize="62" Margin="446,235,0,0"
                />
+        <CheckBox x:Name="chckbxHelp"
+            Content="Help" 
+            HorizontalAlignment="Left" 
+            Margin="79,235,0,0" 
+            VerticalAlignment="Top" Checked="chckbxHelp_Checked" Unchecked="chckbxHelp_Unchecked"
+            />
+        <TextBox x:Name="tbTextForEnter"
+            HorizontalAlignment="Left" 
+            Margin="101,63,0,0" 
+            TextWrapping="Wrap" 
+            Text="TextBox" 
+            VerticalAlignment="Top" 
+            Width="458" 
+            Height="85"
+            FontSize="62"
+            />
 
 
     </Grid>
