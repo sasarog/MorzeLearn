@@ -31,60 +31,114 @@ namespace MorzeLearn
     /// </summary>
     public partial class MainWindow : Window
     {
-        Dictionary<string,char> alphabet = new Dictionary<string, char>() {
-            {".-",'А' },
-            {"-...",'Б' },
-            {".--",'В' },
-            {"--.",'Г' },
-            {"-..",'Д' },
-            {".",'Е' },
-            {"...-",'Ж' },
-            {"--..",'З' },
-            {".---",'И' },
-            {"-.-",'К' },
-            {".-..",'Л' },
-            {"--",'М' },
-            {"-.",'Н' },
-            {"---",'О' },
-            {".--.",'П' },
-            {".-.",'Р' },
-            {"---",'С' },
-            {"-",'Т' },
-            {"..-",'У' },
-            {"..-.",'Ф' },
-            {"....",'Х' },
-            {"-.-.",'Ц' },
-            {"---.",'Ч' },
-            {"----",'Ш' },
-            {"--.-",'Щ' },
-            {"-..-",'Ь' },
-            {"-.--",'Ы' },
-            {"..-..",'Э' },
-            {"..--",'Ю' },
-            {".-.-",'Я' },
-            {"-..-",'Ъ' },
-            {"-----",'0' },
-            {".----",'1' },
-            {"..---",'2' },
-            {"...--",'3' },
-            {"....-",'4' },
-            {".....",'5' },
-            {"-....",'6' },
-            {"--...",'7' },
-            {"---..",'8' },
-            {"----.",'9' },
-            {"......",'.' },
-            {".-.-.-",',' },
-            {"..--..",'?' },
-            {"-....-",'-' },
-            {".-..-.",'"' },
-            {"-.-.-.",';' },
-            {"--..--",'!' },
-            {"-.--.-",'(' },
-            {"-.--.-",')' },
-            {"---...",':' },
-            {".-.-..",'+' }
-        };
+        //    Dictionary<string,char> alphabet = new Dictionary<string, char>() {
+        //        {".-",'А' },
+        //        {"-...",'Б' },
+        //        {".--",'В' },
+        //        {"--.",'Г' },
+        //        {"-..",'Д' },
+        //        {".",'Е' },
+        //        {"...-",'Ж' },
+        //        {"--..",'З' },
+        //        {"..",'И' },
+        //        {"-.-",'К' },
+        //        {".-..",'Л' },
+        //        {"--",'М' },
+        //        {"-.",'Н' },
+        //        {"---",'О' },
+        //        {".--.",'П' },
+        //        {".-.",'Р' },
+        //        {"...",'С' },
+        //        {"-",'Т' },
+        //        {"..-",'У' },
+        //        {"..-.",'Ф' },
+        //        {"....",'Х' },
+        //        {"-.-.",'Ц' },
+        //        {"---.",'Ч' },
+        //        {"----",'Ш' },
+        //        {"--.-",'Щ' },
+        //        {"-..-",'Ь' },
+        //        {"-.--",'Ы' },
+        //        {"..-..",'Э' },
+        //        {"..--",'Ю' },
+        //        {".-.-",'Я' },
+        //        {"-..-",'Ъ' },
+        //        {"-----",'0' },
+        //        {".----",'1' },
+        //        {"..---",'2' },
+        //        {"...--",'3' },
+        //        {"....-",'4' },
+        //        {".....",'5' },
+        //        {"-....",'6' },
+        //        {"--...",'7' },
+        //        {"---..",'8' },
+        //        {"----.",'9' },
+        //        {"......",'.' },
+        //        {".-.-.-",',' },
+        //        {"..--..",'?' },
+        //        {"-....-",'-' },
+        //        {".-..-.",'"' },
+        //        {"-.-.-.",';' },
+        //        {"--..--",'!' },
+        //        {"-.--.-",'(' },
+        //        {"---...",':' },
+        //        {".-.-..",'+' }
+        //    };
+
+        Dictionary<char, string> alphabet = new Dictionary<char, string>() {
+    {'А', ".-" },
+    {'Б', "-..." },
+    {'В', ".--" },
+    {'Г', "--." },
+    {'Д', "-.." },
+    {'Е', "." },
+    {'Ж', "...-" },
+    {'З', "--.." },
+    {'И', ".." },
+    {'К', "-.-" },
+    {'Л', ".-.." },
+    {'М', "--" },
+    {'Н', "-." },
+    {'О', "---" },
+    {'П', ".--." },
+    {'Р', ".-." },
+    {'С', "..." },
+    {'Т', "-" },
+    {'У', "..-" },
+    {'Ф', "..-." },
+    {'Х', "...." },
+    {'Ц', "-.-." },
+    {'Ч', "---." },
+    {'Ш', "----" },
+    {'Щ', "--.-" },
+    {'Ь', "-..-" },
+    {'Ы', "-.--" },
+    {'Э', "..-.." },
+    {'Ю', "..--" },
+    {'Я', ".-.-" },
+    {'Ъ', "-..-" },
+    {'0', "-----" },
+    {'1', ".----" },
+    {'2', "..---" },
+    {'3', "...--" },
+    {'4', "....-" },
+    {'5', "....." },
+    {'6', "-...." },
+    {'7', "--..." },
+    {'8', "---.." },
+    {'9', "----." },
+    {'.', "......" },
+    {',', ".-.-.-" },
+    {'?', "..--.." },
+    {'-', "-....-" },
+    {'"', ".-..-." },
+    {';', "-.-.-." },
+    {'!', "--..--" },
+    {'(', "-.--.-" },
+    {')', "-.--.-" },
+    {':', "---..." },
+    {'+', ".-.-.." }
+};
 
         //Путь к файлу для воспроизведения
         public string pathToFile = "";
@@ -95,13 +149,17 @@ namespace MorzeLearn
         //Конец  нажатия кнопки
         public DateTime endPush;
         //Таймер для отображения текущей буквы
-        System.Windows.Threading.DispatcherTimer timer;
+        private System.Windows.Threading.DispatcherTimer timer;
+        private System.Windows.Threading.DispatcherTimer timerInput;
         //выключена ли прога
         bool isStopped = true;
         private void InitializeTimers()
         {
             timer = new System.Windows.Threading.DispatcherTimer();
             timer.Tick += new EventHandler(timerTick);
+            timerInput = new System.Windows.Threading.DispatcherTimer();
+            timerInput.Tick += new EventHandler(TimerInputTick);
+
         }
         public MainWindow()
         {
@@ -128,6 +186,14 @@ namespace MorzeLearn
                 case Znak.next:
                     this.lblAddSymbol.Content = "";
                     break;
+            }
+        }
+        private void TimerInputTick(object sender, EventArgs e)
+        {
+            if((DateTime.Now - endPush).TotalMilliseconds > (1000 / sldrSpeed.Value))
+            {
+                AddCharToString();
+                this.timerInput.Stop();
             }
         }
         private void mnOpenFile_Click(object sender, RoutedEventArgs e)
@@ -171,11 +237,14 @@ namespace MorzeLearn
                 this.isStopped = true;
                 this.btnStart.Content = "Start";
             }
+            this.Focus();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            timerInput.Stop();
             if (isStopped) return;
+            
             if (!e.IsRepeat)
             {
                 timer.Start();
@@ -186,7 +255,7 @@ namespace MorzeLearn
         private Znak isZnak(TimeSpan ts)
         {
             //lblMorzeCode.Content = ts.Seconds.ToString();
-            if (ts.TotalMilliseconds > (2000 / sldrSpeed.Value))
+            if (ts.TotalMilliseconds > (4000 / sldrSpeed.Value))
             {
                 return Znak.next;
             }
@@ -225,6 +294,8 @@ namespace MorzeLearn
             }
             timer.Stop();
             lblAddSymbol.Content = "";
+            this.endPush = DateTime.Now;
+            timerInput.Start();
         }
 
         private void chckbxHelp_Checked(object sender, RoutedEventArgs e)
@@ -236,16 +307,32 @@ namespace MorzeLearn
         {
             this.lblMorzeCode.Visibility = Visibility.Collapsed;
         }
-        char GetCharByCode(string code)
+        char GetCharByMorze(string code)
         {
             foreach(var pair in alphabet)
             {
-                if(pair.Key == code)
+                if(pair.Value == code)
+                {
+                    return pair.Key;
+                }
+            }
+            return '\0';
+        }
+        string GetMorzeByChar(char ch)
+        {
+            foreach(var pair in alphabet)
+            {
+                if(pair.Key == ch)
                 {
                     return pair.Value;
                 }
             }
-            return '\0';
+            return null;
+        }
+        void AddCharToString()
+        {
+            lblEnteredText.Content += GetCharByMorze(lblEnteredMorzeCode.Content.ToString()).ToString();
+            this.lblEnteredMorzeCode.Content = "";
         }
     }
 }
