@@ -7,6 +7,29 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open"/>
+                <MenuItem Header="Settings"/>
+                <MenuItem Header="Close"/>
+            </MenuItem>
+        </Menu>
+        <Label x:Name="lblText"
+            Content="Label" HorizontalAlignment="Left" 
+              Margin="111,77,0,0" VerticalAlignment="Top"
+             FontSize="62" Width="458"
+               />
+        <Label x:Name="lblMorzeCode"
+               Content="---.-" HorizontalAlignment="Center" VerticalAlignment="Center"
+                FontSize="62"
+               />
+        <Slider x:Name="sldrSpeed"
+            HorizontalAlignment="Left" 
+            Margin="721,63,0,0" 
+            VerticalAlignment="Top" 
+            Orientation="Vertical" Height="121"
+        />
+
+
     </Grid>
 </Window>
