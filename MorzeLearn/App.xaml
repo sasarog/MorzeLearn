@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:MorzeLearn"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

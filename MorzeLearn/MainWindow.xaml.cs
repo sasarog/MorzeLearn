@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,13 +19,11 @@ using System.Windows.Shapes;
 
 namespace MorzeLearn
 {
-    
-    
-    enum Znak
+        enum Znak
     {
         dot,
         dash,
-        next
+        remove
     }
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -172,6 +171,7 @@ namespace MorzeLearn
             //Загрузка настроек
             this.pathToFile = Properties.Settings.Default.pathToFile;
             this.sldrSpeed.Value = Properties.Settings.Default.speed;
+            this.chckbxHelp.IsChecked = Properties.Settings.Default.checkedHelp;
         }
         private void timerTick(object sender, EventArgs e)
         {
@@ -184,7 +184,7 @@ namespace MorzeLearn
                 case Znak.dash:
                     this.lblAddSymbol.Content = "-";
                     break;
-                case Znak.next:
+                case Znak.remove:
                     this.lblAddSymbol.Content = "";
                     break;
             }
@@ -219,6 +219,7 @@ namespace MorzeLearn
             //Сохранение настроек при закрытии
             Properties.Settings.Default.pathToFile = this.pathToFile;
             Properties.Settings.Default.speed = sldrSpeed.Value;
+            Properties.Settings.Default.checkedHelp = this.chckbxHelp.IsChecked.Value;
             Properties.Settings.Default.Save();
         }
         private void loadText()
@@ -245,8 +246,10 @@ namespace MorzeLearn
         {
             timerInput.Stop();
             if (isStopped) return;
+            //если нажат backspace
             if (e.Key == Key.Back)
             {
+                //Пытаемся удалить одну букву из написанного слова
                 try
                 {
                     string s = this.lblEnteredText.Content.ToString();
@@ -265,13 +268,13 @@ namespace MorzeLearn
                 this.startPush = DateTime.Now;
             }
         }
-        //Определяет, получилась точка, тире или следующая буква
+        //Определяет, получилась точка, тире или стирание буквы
         private Znak isZnak(TimeSpan ts)
         {
             //lblMorzeCode.Content = ts.Seconds.ToString();
             if (ts.TotalMilliseconds > (4000 / sldrSpeed.Value))
             {
-                return Znak.next;
+                return Znak.remove;
             }
             else
             {
@@ -302,7 +305,7 @@ namespace MorzeLearn
                 case Znak.dash:
                     this.lblEnteredMorzeCode.Content += "-";
                     break;
-                case Znak.next:
+                case Znak.remove:
                     this.lblEnteredMorzeCode.Content = "";
                     break;
             }
