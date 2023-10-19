@@ -139,7 +139,7 @@ namespace MorzeLearn
     {':', "---..." },
     {'+', ".-.-.." }
 };
-
+        
         //Путь к файлу для воспроизведения
         public string pathToFile = "";
         //Текст для печати
@@ -150,6 +150,7 @@ namespace MorzeLearn
         public DateTime endPush;
         //Таймер для отображения текущей буквы
         private System.Windows.Threading.DispatcherTimer timer;
+        //Таймер для преобразования кода в букву
         private System.Windows.Threading.DispatcherTimer timerInput;
         //выключена ли прога
         bool isStopped = true;
@@ -190,7 +191,7 @@ namespace MorzeLearn
         }
         private void TimerInputTick(object sender, EventArgs e)
         {
-            if((DateTime.Now - endPush).TotalMilliseconds > (1000 / sldrSpeed.Value))
+            if((DateTime.Now - endPush).TotalMilliseconds > (1500 / sldrSpeed.Value))
             {
                 AddCharToString();
                 this.timerInput.Stop();
@@ -244,7 +245,20 @@ namespace MorzeLearn
         {
             timerInput.Stop();
             if (isStopped) return;
-            
+            if (e.Key == Key.Back)
+            {
+                try
+                {
+                    string s = this.lblEnteredText.Content.ToString();
+                    s = s.Remove(s.Length - 1);
+                    this.lblEnteredText.Content = s;
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
+            }
             if (!e.IsRepeat)
             {
                 timer.Start();
