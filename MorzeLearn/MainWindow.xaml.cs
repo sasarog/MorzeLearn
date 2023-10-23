@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 
 namespace MorzeLearn
 {
-        enum Znak
+    enum Znak
     {
         dot,
         dash,
@@ -138,7 +138,7 @@ namespace MorzeLearn
     {':', "---..." },
     {'+', ".-.-.." }
 };
-        
+
         //Путь к файлу для воспроизведения
         public string pathToFile = "";
         //Текст для печати
@@ -153,6 +153,9 @@ namespace MorzeLearn
         private System.Windows.Threading.DispatcherTimer timerInput;
         //выключена ли прога
         bool isStopped = true;
+
+        //на каком символе находимся
+        int symbolNumber = 0;
         private void InitializeTimers()
         {
             timer = new System.Windows.Threading.DispatcherTimer();
@@ -172,6 +175,36 @@ namespace MorzeLearn
             this.pathToFile = Properties.Settings.Default.pathToFile;
             this.sldrSpeed.Value = Properties.Settings.Default.speed;
             this.chckbxHelp.IsChecked = Properties.Settings.Default.checkedHelp;
+            SaveMode();
+        }
+        /// <summary>
+        /// Задаёт режим работы программы
+        /// </summary>
+        void SetMode()
+        {
+            switch (Properties.Settings.Default.mode)
+            {
+                //sandbox
+                case 0:
+                    this.rbtnSandbox.IsChecked = true;
+                    break;
+                //rewriting
+                case 1:
+                    this.rbtnRewriting.IsChecked = true;
+                    break;
+
+            }
+        }
+        void SaveMode()
+        {
+            if (this.rbtnSandbox.IsChecked == true)
+            {
+                Properties.Settings.Default.mode = 0;
+            }
+            else
+            {
+                Properties.Settings.Default.mode = 1;
+            }
         }
         private void timerTick(object sender, EventArgs e)
         {
@@ -191,7 +224,7 @@ namespace MorzeLearn
         }
         private void TimerInputTick(object sender, EventArgs e)
         {
-            if((DateTime.Now - endPush).TotalMilliseconds > (1500 / sldrSpeed.Value))
+            if ((DateTime.Now - endPush).TotalMilliseconds > (1500 / sldrSpeed.Value))
             {
                 AddCharToString();
                 this.timerInput.Stop();
@@ -220,6 +253,7 @@ namespace MorzeLearn
             Properties.Settings.Default.pathToFile = this.pathToFile;
             Properties.Settings.Default.speed = sldrSpeed.Value;
             Properties.Settings.Default.checkedHelp = this.chckbxHelp.IsChecked.Value;
+            SetMode();
             Properties.Settings.Default.Save();
         }
         private void loadText()
@@ -233,6 +267,7 @@ namespace MorzeLearn
             {
                 this.isStopped = false;
                 this.btnStart.Content = "Stop";
+                NextSymbolNumber();
             }
             else
             {
@@ -326,9 +361,9 @@ namespace MorzeLearn
         }
         char GetCharByMorze(string code)
         {
-            foreach(var pair in alphabet)
+            foreach (var pair in alphabet)
             {
-                if(pair.Value == code)
+                if (pair.Value == code)
                 {
                     return pair.Key;
                 }
@@ -337,9 +372,9 @@ namespace MorzeLearn
         }
         string GetMorzeByChar(char ch)
         {
-            foreach(var pair in alphabet)
+            foreach (var pair in alphabet)
             {
-                if(pair.Key == ch)
+                if (pair.Key == ch)
                 {
                     return pair.Value;
                 }
@@ -348,8 +383,57 @@ namespace MorzeLearn
         }
         void AddCharToString()
         {
-            lblEnteredText.Content += GetCharByMorze(lblEnteredMorzeCode.Content.ToString()).ToString();
+            if (rbtnRewriting.IsChecked == true)
+            {
+                if (RightNumberCheck())
+                {
+                    lblEnteredText.Content += GetCharByMorze(lblEnteredMorzeCode.Content.ToString()).ToString();
+                    
+                    NextSymbolNumber();
+                }
+            }
+            if (rbtnSandbox.IsChecked == true)
+            {
+                lblEnteredText.Content += GetCharByMorze(lblEnteredMorzeCode.Content.ToString()).ToString();
+
+                NextSymbolNumber();
+            }
             this.lblEnteredMorzeCode.Content = "";
+           
+        }
+        /// <summary>
+        /// Переход к следующему символу
+        /// </summary>
+        void NextSymbolNumber()
+        {
+            try
+            {
+                char symbol = tbTextForEnter.Text[symbolNumber];
+                symbol = char.ToUpper(symbol);
+                lblCharacterToEnter.Content = symbol;
+                symbolNumber++;
+                if (chckbxHelp.IsChecked == true)
+                {
+                    lblMorzeCode.Content = GetMorzeByChar(symbol);
+                }
+            }catch (System.IndexOutOfRangeException ex) { }
+        }
+        bool RightNumberCheck()
+        {
+            char enteredChar = GetCharByMorze(lblEnteredMorzeCode.Content.ToString());
+            if (enteredChar == Convert.ToChar(lblCharacterToEnter.Content))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void tbTextForEnter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            symbolNumber = 0;
         }
     }
 }

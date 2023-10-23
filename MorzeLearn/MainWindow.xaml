@@ -1,80 +1,124 @@
-﻿<Window x:Class="MorzeLearn.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MorzeLearn"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="723" Width="1261" Closing="Window_Closing" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
+﻿<Window
+    x:Class="MorzeLearn.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MorzeLearn"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="1261"
+    Height="723"
+    Closing="Window_Closing"
+    KeyDown="Window_KeyDown"
+    KeyUp="Window_KeyUp"
+    mc:Ignorable="d">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
 
 
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="File">
-                <MenuItem x:Name="mnOpenFile" Header="Open" Click="mnOpenFile_Click"/>
-                <MenuItem Header="Settings"/>
-                <MenuItem Header="Close"/>
+                <MenuItem
+                    x:Name="mnOpenFile"
+                    Click="mnOpenFile_Click"
+                    Header="Open" />
+                <MenuItem Header="Settings" />
+                <MenuItem Header="Close" />
             </MenuItem>
         </Menu>
-        <Label x:Name="lblEnteredText"
-            Content="" HorizontalAlignment="Left" 
-              Margin="101,153,0,0" VerticalAlignment="Top"
-             FontSize="62" Width="458"
-               />
-        <Label x:Name="lblMorzeCode"
-               Content=""
-               FontSize="62" Margin="181,225,0,0" 
-                
-               />
-        <Slider x:Name="sldrSpeed"
-            HorizontalAlignment="Left" 
-            Margin="1167,63,0,0" 
-            VerticalAlignment="Top" 
-            Orientation="Vertical" Height="291" Minimum="1" 
-        />
-        <Button x:Name="btnTest"
-            Content="Button" 
-            HorizontalAlignment="Left" 
-            Margin="59,307,0,0" 
-            VerticalAlignment="Top" Click="btnTest_Click"
-            />
-        <Button x:Name="btnStart"
-            Content="Start" 
-            HorizontalAlignment="Left" 
-            Margin="208,433,0,0" 
-            VerticalAlignment="Top" 
-                Height="46"
-                Width="109" Click="btnStart_Click"
-        />
-        <Label x:Name="lblEnteredMorzeCode"
-            Content="---.-" HorizontalAlignment="Left" VerticalAlignment="Top"
-            FontSize="62" Margin="721,225,0,0"
-               />
-        <Label x:Name="lblAddSymbol"
-            Content="---.-" HorizontalAlignment="Left" VerticalAlignment="Top"
-            FontSize="62" Margin="446,235,0,0"
-               />
-        <CheckBox x:Name="chckbxHelp"
-            Content="Help" 
-            HorizontalAlignment="Left" 
-            Margin="79,235,0,0" 
-            VerticalAlignment="Top" 
-                  Checked="chckbxHelp_Checked" 
-                  Unchecked="chckbxHelp_Unchecked" 
-            />
-        <TextBox x:Name="tbTextForEnter"
-            HorizontalAlignment="Left" 
-            Margin="101,63,0,0" 
-            TextWrapping="Wrap" 
-            Text="TextBox" 
-            VerticalAlignment="Top" 
-            Width="458" 
+        <Label
+            x:Name="lblEnteredText"
+            Width="1011"
+            Margin="101,153,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content=""
+            FontSize="62" />
+
+        <Slider
+            x:Name="sldrSpeed"
+            Height="291"
+            Margin="1167,63,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Minimum="1"
+            Orientation="Vertical" />
+        <Button
+            x:Name="btnTest"
+            Margin="59,307,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="btnTest_Click"
+            Content="Button" />
+        <Button
+            x:Name="btnStart"
+            Width="109"
+            Height="46"
+            Margin="208,433,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="btnStart_Click"
+            Content="Start" />
+        <Label
+            x:Name="lblMorzeCode"
+            Margin="181,225,897,380"
+            Content=""
+            FontSize="62" />
+        <Label
+            x:Name="lblEnteredMorzeCode"
+            Margin="721,225,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="---.-"
+            FontSize="62" />
+        <Label
+            x:Name="lblAddSymbol"
+            Margin="446,235,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="---.-"
+            FontSize="62" />
+        <CheckBox
+            x:Name="chckbxHelp"
+            Margin="79,235,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Checked="chckbxHelp_Checked"
+            Content="Help"
+            Unchecked="chckbxHelp_Unchecked" />
+        <TextBox
+            x:Name="tbTextForEnter"
+            Width="1011"
             Height="85"
+            Margin="101,63,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
             FontSize="62"
-            />
+            Text="ТекстБокс"
+            TextWrapping="Wrap" TextChanged="tbTextForEnter_TextChanged" />
+        <RadioButton
+            x:Name="rbtnSandbox"
+            Margin="35,402,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Песочница"
+            FontSize="20" />
+        <RadioButton
+            x:Name="rbtnRewriting"
+            Margin="35,433,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Перепись"
+            FontSize="20" />
+        <Label
+            x:Name="lblCharacterToEnter"
+            Margin="446,382,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="А"
+            FontSize="62" />
 
 
     </Grid>
