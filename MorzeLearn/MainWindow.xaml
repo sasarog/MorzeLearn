@@ -63,19 +63,19 @@
             Content="Start" />
         <Label
             x:Name="lblMorzeCode"
-            Margin="181,225,897,380"
+            Margin="183,271,895,334"
             Content=""
             FontSize="62" />
         <Label
             x:Name="lblEnteredMorzeCode"
-            Margin="721,225,0,0"
+            Margin="721,281,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="---.-"
             FontSize="62" />
         <Label
             x:Name="lblAddSymbol"
-            Margin="446,235,0,0"
+            Margin="446,276,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="---.-"
@@ -97,7 +97,8 @@
             VerticalAlignment="Top"
             FontSize="62"
             Text="ТекстБокс"
-            TextWrapping="Wrap" TextChanged="tbTextForEnter_TextChanged" />
+            TextChanged="tbTextForEnter_TextChanged"
+            TextWrapping="Wrap" />
         <RadioButton
             x:Name="rbtnSandbox"
             Margin="35,402,0,0"
@@ -119,6 +120,26 @@
             VerticalAlignment="Top"
             Content="А"
             FontSize="62" />
+        <Label
+            Margin="183,255,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Подсказка" />
+        <Label
+            Margin="440,250,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Что сейчас добавится к коду" />
+        <Label
+            Margin="721,245,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Код вводимого символа" />
+        <Label
+            Margin="1126,37,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Скорость ввода" />
 
 
     </Grid>
